@@ -10,4 +10,6 @@ data/*.csv
 *.swp
 *.swo
 
-src/*.exe;
+/src/c2c.exe
+
+.vscode/
