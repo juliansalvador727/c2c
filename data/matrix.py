@@ -1,16 +1,15 @@
 import geopandas as gpd
+import pandas as pd
 
 # Load shapefile
 world = gpd.read_file("data/ne_110m_admin_0_countries.shp")
 
-# Keep only necessary columns
+# Keep necessary columns
 world = world[["ADMIN", "geometry"]]
-
-# Ensure geometries are valid
 world = world[world.geometry.notnull()]
 
+# Build neighbors dictionary
 neighbors = {}
-
 for i, country in world.iterrows():
     borders = []
     for j, other in world.iterrows():
@@ -18,10 +17,16 @@ for i, country in world.iterrows():
             borders.append(other.ADMIN)
     neighbors[country.ADMIN] = borders
 
-with open("data/borders.csv", "w", encoding="utf-8") as f:
-    for country, border_list in neighbors.items():
-        if border_list:
-            for neighbor in border_list:
-                f.write(f"{country},{neighbor}\n")
-        else:
-            f.write(f"{country},NONE\n")
+# List of all countries sorted alphabetically
+countries = sorted(neighbors.keys())
+
+# Initialize adjacency matrix with 0s
+matrix = pd.DataFrame(0, index=countries, columns=countries)
+
+# Fill matrix
+for country, border_list in neighbors.items():
+    for neighbor in border_list:
+        matrix.loc[country, neighbor] = 1
+
+# Save to CSV
+matrix.to_csv("data/matrix.csv")
