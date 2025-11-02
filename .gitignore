@@ -4,15 +4,10 @@ __pycache__/
 
 # Data files
 data/*.csv
-data/*.cpg
-data/*.dbf
-data/*.prj
-data/*.shp
-data/*.shx
 
 # OS / editor files
 .DS_Store
 *.swp
 *.swo
 
-c2c.exe;
+src/*.exe;
