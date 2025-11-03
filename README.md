@@ -44,7 +44,7 @@ cd c2c
 
 ```sh
 cd data
-pip install
+python -m pip install -r requirements.txt
 cd ..
 data/python generate_data.py
 data/python3 generate_data.py (on WSL)
