@@ -11,5 +11,6 @@ data/*.csv
 *.swo
 
 /src/c2c.exe
+/src/c2c
 
 .vscode/
