@@ -22,8 +22,8 @@ To get a local copy of this project running, follow these steps:
 ### Prerequisites
 You need a C++ compiler and Python for data generation.
 ```sh
-sudo apt install g++   # on Ubuntu / WSL
-python --version      # confirm Python is installed
+sudo apt install g++
+python --version
 ```
 ### Installation
 1. Clone the repository:
