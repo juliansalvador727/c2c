@@ -4,7 +4,7 @@ import sys
 # Choose the Python executable based on OS
 python_cmd = "python3" if sys.platform != "win32" else "python"
 
-scripts = ["data/borders.py", "data/country_code.py", "data/check.py", "data/matrix.py", "data/matrix_country_code.py"]
+scripts = ["borders.py", "country_code.py", "check.py", "matrix.py", "matrix_country_code.py"]
 
 for script in scripts:
     print(f"Running {script}...")
