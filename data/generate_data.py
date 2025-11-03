@@ -8,7 +8,7 @@ scripts = ["data/borders.py", "data/country_code.py", "data/check.py", "data/mat
 
 for script in scripts:
     print(f"Running {script}...")
-    result = sp.run(["python3", script], capture_output=True, text=True)
+    result = sp.run([python_cmd, script], capture_output=True, text=True)
     if result.returncode == 0:
         print(f"{script} completed successfully.")
     else:
