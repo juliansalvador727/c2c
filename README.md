@@ -44,10 +44,9 @@ cd c2c
 
 ```sh
 cd data
-python -m pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 cd ..
-data/python generate_data.py
-data/python3 generate_data.py (on WSL)
+python3 data/generate_data.py
 ```
 
 3. Compile the C++ program:
