@@ -84,6 +84,15 @@ int main(int argc, char* argv[]) {
             std::cout << "No path found from " << start << " to " << end << ".\n";
             return 0;
         }
+
+        auto strip_spaces = [](std::string &s){
+        s.erase(std::remove_if(s.begin(), s.end(), ::isspace), s.end());
+        };
+
+        for (auto &country : path) {
+            strip_spaces(country);
+        }
+
         for (size_t i = 0; i < path.size(); ++i) {
             std::cout << path[i];
             if (i < path.size() - 1) std::cout << " ";
