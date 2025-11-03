@@ -24,7 +24,7 @@ To get a local copy of this project running, follow these steps:
 
 ### Prerequisites
 
-You need a C++ compiler and Python for data generation.
+You need a C++ compiler and Python (or Python 3) for data generation.
 
 ```sh
 sudo apt install g++
@@ -43,7 +43,11 @@ cd c2c
 2. Generate the CSV data used for borders:
 
 ```sh
-python generate_data.py
+cd data
+pip install
+cd ..
+data/python generate_data.py
+data/python3 generate_data.py (on WSL)
 ```
 
 3. Compile the C++ program:
