@@ -2,6 +2,7 @@
 #include "pathfinder.h"
 #include <iostream>
 #include <algorithm>
+#include <cctype>
 
 int main(int argc, char* argv[]) {
     if (argc < 3) {
@@ -11,6 +12,11 @@ int main(int argc, char* argv[]) {
     }
     std::string mode = argv[1];
     std::string arg = argv[2];
+
+    if (!arg.empty() && arg.back() == '\r') {
+        arg.pop_back();
+    }
+
     size_t arrow = arg.find("->");
     if (arrow == std::string::npos) {
         std::cerr << "invalid format. Use START->END (e.g. CHN->USA)\n";
@@ -20,8 +26,21 @@ int main(int argc, char* argv[]) {
     std::string start = arg.substr(0, arrow);
     std::string end = arg.substr(arrow + 2);
 
+    auto trim = [](std::string& s) {
+    // leading
+    s.erase(s.begin(), std::find_if(s.begin(), s.end(),
+        [](unsigned char ch){ return !std::isspace(ch); }));
+    // trailing
+    s.erase(std::find_if(s.rbegin(), s.rend(),
+        [](unsigned char ch){ return !std::isspace(ch); }).base(), s.end());
+    };
+
+    trim(start);
+    trim(end);
+
     std::transform(start.begin(), start.end(), start.begin(), ::toupper);
     std::transform(end.begin(), end.end(), end.begin(), ::toupper);
+
 
     Graph graph;
     try {
@@ -38,6 +57,16 @@ int main(int argc, char* argv[]) {
             std::cout << "No path found from " << start << " to " << end << ".\n";
             return 0;
         }
+
+        auto strip_spaces = [](std::string &s){
+        s.erase(std::remove_if(s.begin(), s.end(), ::isspace), s.end());
+        };
+        for (auto &path : shortest) {
+            for (auto &country : path) {
+                strip_spaces(country);
+            }
+        }
+
         std::cout << "Found " << shortest.size()
                   << " shortest path(s) from " << start << " to " << end << ":\n";
 
@@ -62,17 +91,4 @@ int main(int argc, char* argv[]) {
         std::cout << "\n";
     }
 
-
-    // auto path = shortest_path(graph, start, end);
-
-    // if (path.empty()) {
-    //     std::cout << "No path found from " << start << " to " << end << ".\n";
-    //     return 0;
-    // }
-
-    // for (const auto& c : path) {
-    //     std::cout << c << " ";
-    // }
-    // std::cout << "\n";
-    // return 0;
 }
